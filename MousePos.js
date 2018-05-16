@@ -1,20 +1,21 @@
 
 
 export class MousePos {
-    constructor() {
+    constructor(currentCanvas) {
         this.x = 50;
         this.y = 50;
         this.easing = 0.050;
         this.started = false;
+        this.canvas = currentCanvas;
     }
-    updateMousePos(e, canvas) {
-        const coord = getMousePos(canvas, e);
+    updateMousePos(e) {
+        const coord = getMousePos(this.canvas, e);
         this.x = coord.x;
         this.y = coord.y;
     }
-    setStarted(e, canvas, evil) {
+    setStarted(e, evil) {
         if (!this.started) {
-            const coord = getMousePos(canvas, e);
+            const coord = getMousePos(this.canvas, e);
             evil.x = coord.x;
             evil.y = coord.y;
         }

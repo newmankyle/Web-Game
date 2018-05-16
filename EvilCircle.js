@@ -11,8 +11,8 @@ function Shape() {
 
 //define the EvilCircle - My Code below
 export  class EvilCircle {
-    constructor(x, y, exists, cellSize) {
-        Shape.call(this, x, y, exists);
+    constructor(cellSize, context) {
+        Shape.call(this);
         this.coordX = 0;
         this.coordY = 0;
         this.a = 0.1;
@@ -22,17 +22,18 @@ export  class EvilCircle {
         this.fillSize = 0;
         this.velX = 20;
         this.velY = 20;
+        this.ctx = context;
     }
-    draw(ctx) {
-        ctx.beginPath();
-        ctx.strokeStyle = this.color;
-        ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
+    draw() {
+        this.ctx.beginPath();
+        this.ctx.strokeStyle = this.color;
+        this.ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
         //console.log(this.x, this.y, this.size, 2 * Math.PI);
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.fillStyle = 'red';
-        ctx.arc(this.x, this.y, this.fillSize, 0, 2 * Math.PI);
-        ctx.fill();
+        this.ctx.stroke();
+        this.ctx.beginPath();
+        this.ctx.fillStyle = 'red';
+        this.ctx.arc(this.x, this.y, this.fillSize, 0, 2 * Math.PI);
+        this.ctx.fill();
     }
     checkBounds(mouse, cellSize) {
         //First check the bounds of the circle
@@ -76,19 +77,18 @@ export  class EvilCircle {
         //}
     }
     setControls() {
-        const _this = this;
         window.onkeydown = function (e) {
             if (e.keyCode === 65) {
-                _this.x -= _this.velX;
+                this.x -= this.velX;
             }
             else if (e.keyCode === 68) {
-                _this.x += _this.velX;
+                this.x += this.velX;
             }
             else if (e.keyCode === 87) {
-                _this.y -= _this.velY;
+                this.y -= this.velY;
             }
             else if (e.keyCode === 83) {
-                _this.y += _this.velY;
+                this.y += this.velY;
             }
         };
     }
